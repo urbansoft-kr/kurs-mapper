@@ -6,7 +6,7 @@ plugins {
 
 allprojects {
   group = "kr.urbansoft.kursmapper"
-  version = "0.1.0-alpha"
+  version = "0.1.1-alpha"
 
   repositories { mavenCentral() }
 }
