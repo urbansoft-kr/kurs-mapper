@@ -1,0 +1,3 @@
+## lib-mapper-processor/src/main/resources/META-INF/services/com.google.devtools.ksp.processing.SymbolProcessorProvider
+
+kr.urbansoft.kursmapper.processor.startup.ProcessorProvider
