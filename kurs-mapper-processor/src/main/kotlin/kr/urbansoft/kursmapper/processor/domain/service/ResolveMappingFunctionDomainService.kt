@@ -17,8 +17,8 @@ import kr.urbansoft.kursmapper.processor.domain.service.resolver.resolveSingleTo
 import kr.urbansoft.kursmapper.processor.domain.service.resolver.resolveSingleToMultiple
 import kr.urbansoft.kursmapper.processor.domain.service.resolver.resolveSingleToSingle
 import kr.urbansoft.kursmapper.processor.domain.service.resolver.resolveSourceAndTargetAreIdentical
-import kr.urbansoft.kursmapper.processor.shared.exception.ExceptionMessageSupport
-import kr.urbansoft.kursmapper.processor.shared.exception.ExceptionType
+import kr.urbansoft.shared.exception.ExceptionMessageSupport
+import kr.urbansoft.shared.exception.ExceptionType
 
 class ResolveMappingFunctionDomainService {
   interface Context {
@@ -52,9 +52,11 @@ class ResolveMappingFunctionDomainService {
 
     fun calleeId(pair: Pair<KursTypeId, KursTypeId>): MappingFunctionId = MappingFunctionId.from(pair.first, pair.second)
 
-    fun callableCallee(calleeId: MappingFunctionId): MappingFunction? = currentAllMappingFunctionMap[calleeId]?.takeIf { it.maybeCallable() }
+    fun callableCallee(calleeId: MappingFunctionId): MappingFunction? =
+      currentAllMappingFunctionMap[calleeId]?.takeIf { it.maybeCallable() }
 
-    fun body(block: FunctionBody.Builder.() -> FunctionBody.Builder): FunctionBody = block(FunctionBody.Builder(functionBodyBuilderContext())).build()
+    fun body(block: FunctionBody.Builder.() -> FunctionBody.Builder): FunctionBody =
+      block(FunctionBody.Builder(functionBodyBuilderContext())).build()
 
     fun import(block: FunctionBody.Import.Builder.() -> FunctionBody.Import.Builder): List<FunctionBody.Import> =
       block(FunctionBody.Import.Builder(functionBodyBuilderContext())).build()
@@ -209,8 +211,10 @@ class ResolveMappingFunctionDomainService {
     companion object {
       fun <T> CurrentContext.withCallableCallee(calleeId: MappingFunctionId, block: (WithCallableCallee) -> T): T? {
         val callee = callableCallee(calleeId) ?: return null
-        val calleeSource = callee.sourceId.asKursTypeOrNull() ?: throw ExceptionMessage.CALLEE_SOURCE_IS_NOT_FOUND.create(callee.sourceId.name.value)
-        val calleeTarget = callee.targetId.asKursTypeOrNull() ?: throw ExceptionMessage.CALLEE_TARGET_IS_NOT_FOUND.create(callee.targetId.name.value)
+        val calleeSource =
+          callee.sourceId.asKursTypeOrNull() ?: throw ExceptionMessage.CALLEE_SOURCE_IS_NOT_FOUND.create(callee.sourceId.name.value)
+        val calleeTarget =
+          callee.targetId.asKursTypeOrNull() ?: throw ExceptionMessage.CALLEE_TARGET_IS_NOT_FOUND.create(callee.targetId.name.value)
         return block(WithCallableCallee(callee, calleeSource, calleeTarget))
       }
     }

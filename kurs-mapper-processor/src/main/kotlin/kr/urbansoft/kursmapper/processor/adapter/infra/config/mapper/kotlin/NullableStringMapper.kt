@@ -20,7 +20,8 @@ value class NullableStringMapper(private val source: String?) {
 
   fun asFunctionNameSuffix(): FunctionNameSuffix = source?.configMapper()?.asFunctionNameSuffix() ?: FunctionNameSuffix.default()
 
-  fun asMapperNameGlobalSuffix(): MapperNameGlobalSuffix = source?.configMapper()?.asMapperNameGlobalSuffix() ?: MapperNameGlobalSuffix.default()
+  fun asMapperNameGlobalSuffix(): MapperNameGlobalSuffix =
+    source?.configMapper()?.asMapperNameGlobalSuffix() ?: MapperNameGlobalSuffix.default()
 
   fun asMapperNamePrefix(): MapperNamePrefix = source?.configMapper()?.asMapperNamePrefix() ?: MapperNamePrefix.default()
 
@@ -29,7 +30,8 @@ value class NullableStringMapper(private val source: String?) {
   fun asMapperSourceVariableName(): MapperSourceVariableName =
     source?.configMapper()?.asMapperSourceVariableName() ?: MapperSourceVariableName.default()
 
-  fun asMappingFunctionNameVerb(): MappingFunctionNameVerb = source?.configMapper()?.asMappingFunctionNameVerb() ?: MappingFunctionNameVerb.default()
+  fun asMappingFunctionNameVerb(): MappingFunctionNameVerb =
+    source?.configMapper()?.asMappingFunctionNameVerb() ?: MappingFunctionNameVerb.default()
 
   fun asNullableContextName(): ContextName? = source?.configMapper()?.asContextName()
 

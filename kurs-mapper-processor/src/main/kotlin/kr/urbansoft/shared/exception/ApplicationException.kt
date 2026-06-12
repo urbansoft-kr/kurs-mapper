@@ -1,4 +1,4 @@
-package kr.urbansoft.kursmapper.processor.shared.exception
+package kr.urbansoft.shared.exception
 
 open class ApplicationException : RuntimeException {
   val namespace: String
@@ -128,7 +128,8 @@ open class ApplicationException : RuntimeException {
       if (applicationException.namespace == fromMessage.namespace && applicationException.code == fromMessage.code()) {
         val last = variables.lastOrNull()
         return Translator(
-          if (last !is Throwable && applicationException.cause != null) ApplicationException(toMessage, *variables, applicationException.cause)
+          if (last !is Throwable && applicationException.cause != null)
+            ApplicationException(toMessage, *variables, applicationException.cause)
           else ApplicationException(toMessage, *variables)
         )
       }

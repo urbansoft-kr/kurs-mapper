@@ -61,8 +61,8 @@ import kr.urbansoft.kursmapper.processor.domain.service.CollectPreDefinedMapping
 import kr.urbansoft.kursmapper.processor.domain.service.GenerateGuideDomainService
 import kr.urbansoft.kursmapper.processor.domain.service.MergeMappingFunctionDomainService
 import kr.urbansoft.kursmapper.processor.domain.service.ResolveMappingFunctionDomainService
-import kr.urbansoft.kursmapper.processor.shared.exception.ApplicationException
-import kr.urbansoft.kursmapper.processor.shared.exception.ExceptionType
+import kr.urbansoft.shared.exception.ApplicationException
+import kr.urbansoft.shared.exception.ExceptionType
 import kr.urbansoft.tools.KursDI
 
 class Processor(private val codeGenerator: CodeGenerator, private val kspLogger: KSPLogger) : SymbolProcessor {
@@ -73,7 +73,10 @@ class Processor(private val codeGenerator: CodeGenerator, private val kspLogger:
         keySelector = {
           getAnnotationArgumentValueAsTrimmedStringOrNull(KursContextDefinition.QUALIFIED_NAME, KursContextDefinition.Property.CONTEXT_NAME)
             ?: run {
-              kspLogger.error("'${KursContextDefinition.Property.CONTEXT_NAME}' in @${KursContextDefinition.SIMPLE_NAME} is required.", this)
+              kspLogger.error(
+                "'${KursContextDefinition.Property.CONTEXT_NAME}' in @${KursContextDefinition.SIMPLE_NAME} is required.",
+                this,
+              )
               return emptyList()
             }
         },

@@ -4,8 +4,8 @@ import kr.urbansoft.kursmapper.processor.adapter.infra.config.mapper.annotation.
 import kr.urbansoft.kursmapper.processor.adapter.infra.config.mapper.kotlin.configMapper
 import kr.urbansoft.kursmapper.processor.adapter.infra.config.model.RawContextConfig
 import kr.urbansoft.kursmapper.processor.domain.model.config.ContextConfig
-import kr.urbansoft.kursmapper.processor.shared.exception.ExceptionMessageSupport
-import kr.urbansoft.kursmapper.processor.shared.exception.ExceptionType
+import kr.urbansoft.shared.exception.ExceptionMessageSupport
+import kr.urbansoft.shared.exception.ExceptionType
 
 fun RawContextConfig.configMapper() = RawContextConfigMapper(this)
 

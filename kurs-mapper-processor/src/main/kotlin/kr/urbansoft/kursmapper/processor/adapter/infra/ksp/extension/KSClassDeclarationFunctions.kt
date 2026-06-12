@@ -37,7 +37,8 @@ fun KSClassDeclaration.getAllMemberFunctionDeclarations(kspResolver: Resolver): 
 }
 
 fun KSClassDeclaration.getAllStaticOrCompanionFunctionDeclaration(kspResolver: Resolver): List<KSFunctionDeclaration> {
-  val staticMethods = this.getAllFunctions().filter { it.modifiers.contains(Modifier.JAVA_STATIC) }.filter { it.hasValidReturnType(kspResolver) }
+  val staticMethods =
+    this.getAllFunctions().filter { it.modifiers.contains(Modifier.JAVA_STATIC) }.filter { it.hasValidReturnType(kspResolver) }
   val companionMethods =
     this.declarations
       .filterIsInstance<KSClassDeclaration>()
@@ -65,7 +66,9 @@ inline fun <reified T, S : Any> KSClassDeclaration.getAnnotationArgumentValueAsL
 fun KSClassDeclaration.getAnnotationArgumentValueAsTrimmedStringOrNull(qualifiedName: String, argumentName: String): String? =
   getAnnotationOrNull(qualifiedName)?.getArgumentValueAsTrimmedStringOrNull(argumentName)
 
-fun KSClassDeclaration.getAnnotationOrNull(qualifiedName: String): KSAnnotation? = annotations.find { it.getQualifiedNameOrNull() == qualifiedName }
+fun KSClassDeclaration.getAnnotationOrNull(qualifiedName: String): KSAnnotation? = annotations.find {
+  it.getQualifiedNameOrNull() == qualifiedName
+}
 
 fun KSClassDeclaration.getInstantiatorOrNull(
   rootPackageName: PackageName,
@@ -82,7 +85,8 @@ fun KSClassDeclaration.getInstantiatorOrNull(
     .filter { it.parameters.size == constructorParameters.size }
     .filter { candidate ->
       val returnKsType = candidate.returnType?.resolve() ?: return@filter false
-      thisKsType?.let { it.makeNotNullable().toTypeName() == returnKsType.toTypeName() } ?: (toClassName() == returnKsType.toClassNameOrNull())
+      thisKsType?.let { it.makeNotNullable().toTypeName() == returnKsType.toTypeName() }
+        ?: (toClassName() == returnKsType.toClassNameOrNull())
     }
     .singleOrNull {
       constructorParameters.zip(it.parameters).all { (constructorParameter, functionParameter) ->

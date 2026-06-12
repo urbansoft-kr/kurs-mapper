@@ -4,9 +4,9 @@ import kr.urbansoft.kursmapper.processor.domain.model.config.FunctionNamePrefix
 import kr.urbansoft.kursmapper.processor.domain.model.config.FunctionNameSuffix
 import kr.urbansoft.kursmapper.processor.domain.model.config.MappingFunctionNameVerb
 import kr.urbansoft.kursmapper.processor.domain.model.kurstype.SymbolName
-import kr.urbansoft.kursmapper.processor.shared.exception.ExceptionMessageSupport
-import kr.urbansoft.kursmapper.processor.shared.exception.ExceptionType
-import kr.urbansoft.kursmapper.processor.shared.validation.validate
+import kr.urbansoft.shared.exception.ExceptionMessageSupport
+import kr.urbansoft.shared.exception.ExceptionType
+import kr.urbansoft.shared.validation.validate
 
 @JvmInline
 value class FunctionName private constructor(val value: String) {

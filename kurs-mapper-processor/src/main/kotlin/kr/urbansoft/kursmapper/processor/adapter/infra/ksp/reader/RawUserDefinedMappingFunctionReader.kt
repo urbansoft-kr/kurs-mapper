@@ -29,10 +29,12 @@ class RawUserDefinedMappingFunctionReader(private val kspResolver: Resolver) {
       .filter { classDeclaration -> classDeclaration.getSimpleName().endsWith(contextConfig.mapperNameGlobalSuffix.value) }
       .mapNotNull { classDeclaration ->
         val parameter =
-          classDeclaration.getPrimaryConstructorDeclaration(contextConfig.rootPackageName)?.parameters?.singleOrNull() ?: return@mapNotNull null
+          classDeclaration.getPrimaryConstructorDeclaration(contextConfig.rootPackageName)?.parameters?.singleOrNull()
+            ?: return@mapNotNull null
         val property = classDeclaration.getAllProperties().singleOrNull() ?: return@mapNotNull null
         if (!property.isPublic()) return@mapNotNull null
-        if (parameter.getNameOrNull() == contextConfig.mapperSourceVariableName.value) classDeclaration to parameter.type.resolve() else null
+        if (parameter.getNameOrNull() == contextConfig.mapperSourceVariableName.value) classDeclaration to parameter.type.resolve()
+        else null
       }
       .flatMap { (classDeclaration, sourceKsType) ->
         classDeclaration.getAllMemberFunctionDeclarations(kspResolver).mapNotNull { functionDeclaration ->

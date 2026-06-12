@@ -1,8 +1,8 @@
 package kr.urbansoft.kursmapper.processor.adapter.outbound
 
 import kr.urbansoft.kursmapper.processor.application.port.outbound.RaiseCompileErrorPort
-import kr.urbansoft.kursmapper.processor.shared.exception.ExceptionMessageSupport
-import kr.urbansoft.kursmapper.processor.shared.exception.ExceptionType
+import kr.urbansoft.shared.exception.ExceptionMessageSupport
+import kr.urbansoft.shared.exception.ExceptionType
 
 class RaiseCompileErrorAdapter : RaiseCompileErrorPort {
   override fun raise(guide: String) {

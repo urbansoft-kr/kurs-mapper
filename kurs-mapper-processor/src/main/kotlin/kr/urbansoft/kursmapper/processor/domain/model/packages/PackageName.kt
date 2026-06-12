@@ -1,8 +1,8 @@
 package kr.urbansoft.kursmapper.processor.domain.model.packages
 
-import kr.urbansoft.kursmapper.processor.shared.exception.ExceptionMessageSupport
-import kr.urbansoft.kursmapper.processor.shared.exception.ExceptionType
-import kr.urbansoft.kursmapper.processor.shared.validation.validate
+import kr.urbansoft.shared.exception.ExceptionMessageSupport
+import kr.urbansoft.shared.exception.ExceptionType
+import kr.urbansoft.shared.validation.validate
 
 @JvmInline
 value class PackageName private constructor(val value: String) {
@@ -28,7 +28,8 @@ value class PackageName private constructor(val value: String) {
 
   operator fun plus(part: PackageNamePart): PackageName = if (part.isBlank()) this else PackageName(value = "$value.${part.value}")
 
-  operator fun plus(packageName: PackageName): PackageName = if (packageName.isBlank()) this else PackageName(value = "$value.${packageName.value}")
+  operator fun plus(packageName: PackageName): PackageName =
+    if (packageName.isBlank()) this else PackageName(value = "$value.${packageName.value}")
 
   operator fun contains(other: PackageName): Boolean = other.value == value || other.value.startsWith("$value.")
 

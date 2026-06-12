@@ -48,7 +48,8 @@ class ResolveMappingFunctionService(
 
           override fun loadAllMappingFunctionList(): List<MappingFunction> = loadCollectedMappingFunctionPort.loadAll()
 
-          override fun saveMappingFunction(mappingFunction: MappingFunction): MappingFunction = saveCollectedMappingFunctionPort.save(mappingFunction)
+          override fun saveMappingFunction(mappingFunction: MappingFunction): MappingFunction =
+            saveCollectedMappingFunctionPort.save(mappingFunction)
         }
       context.resolve()
     }

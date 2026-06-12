@@ -17,6 +17,10 @@ value class RawArgumentListMapper(private val source: List<RawArgument>) {
   ): List<Argument> = source.map {
     it
       .kspMapper()
-      .asArgument(loadMappedKursTypeId = loadMappedKursTypeId, checkKsTypeTrait = checkKsTypeTrait, handleMappedKursTypeId = handleMappedKursTypeId)
+      .asArgument(
+        loadMappedKursTypeId = loadMappedKursTypeId,
+        checkKsTypeTrait = checkKsTypeTrait,
+        handleMappedKursTypeId = handleMappedKursTypeId,
+      )
   }
 }

@@ -37,7 +37,8 @@ private constructor(
       kursTypeRuleConfigList: List<KursTypeRuleConfig>,
     ): KursType {
       val kursTypeRuleConfig = kursTypeRuleConfigList.firstOrNull { it.kursTypeId == id }?.rule
-      val packageRuleConfig = packageRuleConfigList.filter { id.packageName() in it.packageName }.maxByOrNull { it.packageName.length() }?.rule
+      val packageRuleConfig =
+        packageRuleConfigList.filter { id.packageName() in it.packageName }.maxByOrNull { it.packageName.length() }?.rule
       val ruleConfig = kursTypeRuleConfig ?: packageRuleConfig ?: RuleConfig.default()
       return KursType(
         id = id,
@@ -67,7 +68,8 @@ private constructor(
 
   fun isSameExceptNullability(other: KursType): Boolean = id.isSameExceptNullability(other.id)
 
-  fun isSameExceptNullabilityAndResolvable(target: KursType): Boolean = this.isSameExceptNullability(target) && isNotNull() && target.isNullable()
+  fun isSameExceptNullabilityAndResolvable(target: KursType): Boolean =
+    this.isSameExceptNullability(target) && isNotNull() && target.isNullable()
 
   fun isSet(): Boolean = id.hasTrait(Trait.SET)
 

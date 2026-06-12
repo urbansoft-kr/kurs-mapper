@@ -10,7 +10,8 @@ class CollectedMappingFunctionRegistry private constructor(private val map: Muta
 
   fun exists(mappingFunctionId: MappingFunctionId): Boolean = map.containsKey(mappingFunctionId)
 
-  fun get(mappingFunctionId: MappingFunctionId): MappingFunction = map[mappingFunctionId] ?: error("mappingFunction is not found: $mappingFunctionId")
+  fun get(mappingFunctionId: MappingFunctionId): MappingFunction =
+    map[mappingFunctionId] ?: error("mappingFunction is not found: $mappingFunctionId")
 
   fun getAll(): List<MappingFunction> = map.values.toList()
 
