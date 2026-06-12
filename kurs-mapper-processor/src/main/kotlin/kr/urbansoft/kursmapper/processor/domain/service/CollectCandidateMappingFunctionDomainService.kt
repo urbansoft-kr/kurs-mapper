@@ -3,8 +3,8 @@ package kr.urbansoft.kursmapper.processor.domain.service
 import kr.urbansoft.kursmapper.processor.domain.model.function.MappingFunction
 import kr.urbansoft.kursmapper.processor.domain.model.kurstype.KursType
 import kr.urbansoft.kursmapper.processor.domain.model.kurstype.KursTypeId
-import kr.urbansoft.kursmapper.processor.shared.exception.ExceptionMessageSupport
-import kr.urbansoft.kursmapper.processor.shared.exception.ExceptionType
+import kr.urbansoft.shared.exception.ExceptionMessageSupport
+import kr.urbansoft.shared.exception.ExceptionType
 
 class CollectCandidateMappingFunctionDomainService {
   interface Context {
@@ -24,8 +24,10 @@ class CollectCandidateMappingFunctionDomainService {
   class Collector(private val context: Context, private val collectedSet: MutableSet<MappingFunction> = mutableSetOf()) {
     fun collect(mappingFunction: MappingFunction) {
       // load source and target
-      val source = context.loadKursType(mappingFunction.sourceId) ?: throw ExceptionMessage.SOURCE_IS_NOT_FOUND.create(mappingFunction.sourceId)
-      val target = context.loadKursType(mappingFunction.targetId) ?: throw ExceptionMessage.TARGET_IS_NOT_FOUND.create(mappingFunction.targetId)
+      val source =
+        context.loadKursType(mappingFunction.sourceId) ?: throw ExceptionMessage.SOURCE_IS_NOT_FOUND.create(mappingFunction.sourceId)
+      val target =
+        context.loadKursType(mappingFunction.targetId) ?: throw ExceptionMessage.TARGET_IS_NOT_FOUND.create(mappingFunction.targetId)
 
       // check if mapping function already collected
       if (mappingFunction in collectedSet) return
@@ -33,25 +35,33 @@ class CollectCandidateMappingFunctionDomainService {
       // collect current mapping function
       collectedSet.add(
         mappingFunction
-          .changeSourceIdAndTargetId(context.asNotNullKursTypeId(mappingFunction.sourceId) to context.asNotNullKursTypeId(mappingFunction.targetId))
+          .changeSourceIdAndTargetId(
+            context.asNotNullKursTypeId(mappingFunction.sourceId) to context.asNotNullKursTypeId(mappingFunction.targetId)
+          )
           .takeIf { it.id != mappingFunction.id }
           ?.changeToCandidate() ?: mappingFunction
       )
       collectedSet.add(
         mappingFunction
-          .changeSourceIdAndTargetId(context.asNotNullKursTypeId(mappingFunction.sourceId) to context.asNullableKursTypeId(mappingFunction.targetId))
+          .changeSourceIdAndTargetId(
+            context.asNotNullKursTypeId(mappingFunction.sourceId) to context.asNullableKursTypeId(mappingFunction.targetId)
+          )
           .takeIf { it.id != mappingFunction.id }
           ?.changeToCandidate() ?: mappingFunction
       )
       collectedSet.add(
         mappingFunction
-          .changeSourceIdAndTargetId(context.asNullableKursTypeId(mappingFunction.sourceId) to context.asNotNullKursTypeId(mappingFunction.targetId))
+          .changeSourceIdAndTargetId(
+            context.asNullableKursTypeId(mappingFunction.sourceId) to context.asNotNullKursTypeId(mappingFunction.targetId)
+          )
           .takeIf { it.id != mappingFunction.id }
           ?.changeToCandidate() ?: mappingFunction
       )
       collectedSet.add(
         mappingFunction
-          .changeSourceIdAndTargetId(context.asNullableKursTypeId(mappingFunction.sourceId) to context.asNullableKursTypeId(mappingFunction.targetId))
+          .changeSourceIdAndTargetId(
+            context.asNullableKursTypeId(mappingFunction.sourceId) to context.asNullableKursTypeId(mappingFunction.targetId)
+          )
           .takeIf { it.id != mappingFunction.id }
           ?.changeToCandidate() ?: mappingFunction
       )
@@ -85,7 +95,8 @@ class CollectCandidateMappingFunctionDomainService {
         // or collect source.parameter -> target
         KursType.Kind.SINGLE to KursType.Kind.BLACKBOX -> {
           val sourceParameter = source.parameterList().first()
-          if (sourceParameter.typeId != target.id) collect(MappingFunction.createCandidate(sourceId = sourceParameter.typeId, targetId = target.id))
+          if (sourceParameter.typeId != target.id)
+            collect(MappingFunction.createCandidate(sourceId = sourceParameter.typeId, targetId = target.id))
         }
 
         // no more collection if source.parameter type and target type are same

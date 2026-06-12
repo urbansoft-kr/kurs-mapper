@@ -7,9 +7,9 @@ import kr.urbansoft.kursmapper.processor.domain.model.kurstype.SymbolName
 import kr.urbansoft.kursmapper.processor.domain.model.mapper.MapperName
 import kr.urbansoft.kursmapper.processor.domain.model.packages.PackageName
 import kr.urbansoft.kursmapper.processor.domain.model.packages.PackageNamePart
-import kr.urbansoft.kursmapper.processor.shared.exception.ExceptionMessageSupport
-import kr.urbansoft.kursmapper.processor.shared.exception.ExceptionType
-import kr.urbansoft.kursmapper.processor.shared.validation.validate
+import kr.urbansoft.shared.exception.ExceptionMessageSupport
+import kr.urbansoft.shared.exception.ExceptionType
+import kr.urbansoft.shared.validation.validate
 
 @ConsistentCopyVisibility
 data class RuleConfig

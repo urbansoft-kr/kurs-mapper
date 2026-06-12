@@ -1,4 +1,4 @@
-package kr.urbansoft.kursmapper.processor.shared.exception
+package kr.urbansoft.shared.exception
 
 interface ExceptionMessageSupport {
   val namespace: String

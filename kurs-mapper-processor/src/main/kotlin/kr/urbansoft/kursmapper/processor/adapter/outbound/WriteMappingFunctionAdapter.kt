@@ -19,8 +19,8 @@ import kr.urbansoft.kursmapper.processor.application.port.outbound.WriteMappingF
 import kr.urbansoft.kursmapper.processor.application.port.outbound.WriteMappingFunctionPort.Context
 import kr.urbansoft.kursmapper.processor.domain.model.function.MappingFunction
 import kr.urbansoft.kursmapper.processor.domain.model.kurstype.KursTypeId
-import kr.urbansoft.kursmapper.processor.shared.exception.ExceptionMessageSupport
-import kr.urbansoft.kursmapper.processor.shared.exception.ExceptionType
+import kr.urbansoft.shared.exception.ExceptionMessageSupport
+import kr.urbansoft.shared.exception.ExceptionType
 
 class WriteMappingFunctionAdapter(
   private val codeGenerator: CodeGenerator,
@@ -36,7 +36,8 @@ class WriteMappingFunctionAdapter(
       throw ExceptionMessage.ALL_MAPPING_FUNCTIONS_IN_THE_LIST_MUST_SHARE_THE_SAME_SOURCE_ID.create()
 
     val sourceId = mappingFunctionList.first().sourceId
-    val sourceTypeName = typeNameRegistry.getOrNull(sourceId) ?: throw ExceptionMessage.SOURCE_TYPE_NAME_IS_NOT_FOUND.create(sourceId.name.value)
+    val sourceTypeName =
+      typeNameRegistry.getOrNull(sourceId) ?: throw ExceptionMessage.SOURCE_TYPE_NAME_IS_NOT_FOUND.create(sourceId.name.value)
     val source = sourceId.asKursType() ?: throw ExceptionMessage.SOURCE_IS_NOT_FOUND.create(sourceId.name.value)
 
     val mapperPackageName = source.mapperPackageName.value
@@ -80,7 +81,11 @@ class WriteMappingFunctionAdapter(
     mapperClassName: ClassName,
   ): FileSpec.Builder = apply {
     val contextSwitchingFunction =
-      FunSpec.builder(functionName).receiver(sourceTypeName).returns(mapperClassName).addStatement("return %T(this)", mapperClassName).build()
+      FunSpec.builder(functionName)
+        .receiver(sourceTypeName)
+        .returns(mapperClassName)
+        .addStatement("return %T(this)", mapperClassName)
+        .build()
     addFunction(contextSwitchingFunction)
   }
 
@@ -110,7 +115,8 @@ class WriteMappingFunctionAdapter(
         mappingFunction.argumentList.forEach { argument ->
           mappingFunctionBuilder.addParameter(
             argument.name.value,
-            typeNameRegistry.getOrNull(argument.typeId) ?: throw ExceptionMessage.PARAMETER_TYPE_NAME_IS_NOT_FOUND.create(argument.typeId.name.value),
+            typeNameRegistry.getOrNull(argument.typeId)
+              ?: throw ExceptionMessage.PARAMETER_TYPE_NAME_IS_NOT_FOUND.create(argument.typeId.name.value),
           )
         }
         addFunction(mappingFunctionBuilder.build())
@@ -120,10 +126,12 @@ class WriteMappingFunctionAdapter(
   private fun FileSpec.Builder.writeToFile(mapperPackageName: String, mapperName: String, sourceId: KursTypeId): FileSpec.Builder = apply {
     val fileSpec = build()
     try {
-      val file = codeGenerator.createNewFile(dependencies = Dependencies.ALL_FILES, packageName = mapperPackageName, fileName = fileName(mapperName))
+      val file =
+        codeGenerator.createNewFile(dependencies = Dependencies.ALL_FILES, packageName = mapperPackageName, fileName = fileName(mapperName))
       OutputStreamWriter(file, StandardCharsets.UTF_8).use { writer -> fileSpec.writeTo(writer) }
     } catch (e: FileAlreadyExistsException) {
-      val wrappedException = ExceptionMessage.MAPPER_FILE_ALREADY_EXISTS.create(mapperPackageName, fileName(mapperName), sourceId.name.value, e)
+      val wrappedException =
+        ExceptionMessage.MAPPER_FILE_ALREADY_EXISTS.create(mapperPackageName, fileName(mapperName), sourceId.name.value, e)
       kspLogger.error(wrappedException.message() ?: "Mapper file already exists")
       throw wrappedException
     } catch (e: Exception) {

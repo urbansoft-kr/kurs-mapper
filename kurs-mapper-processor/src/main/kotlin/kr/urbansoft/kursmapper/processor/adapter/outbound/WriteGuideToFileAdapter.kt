@@ -16,7 +16,8 @@ class WriteGuideToFileAdapter(private val codeGenerator: CodeGenerator) : WriteG
   }
 
   private fun write(guide: String, fileName: String) {
-    val file = codeGenerator.createNewFile(dependencies = Dependencies.ALL_FILES, packageName = "", fileName = fileName, extensionName = "txt")
+    val file =
+      codeGenerator.createNewFile(dependencies = Dependencies.ALL_FILES, packageName = "", fileName = fileName, extensionName = "txt")
     OutputStreamWriter(file, StandardCharsets.UTF_8).use { writer -> writer.write(guide) }
   }
 }

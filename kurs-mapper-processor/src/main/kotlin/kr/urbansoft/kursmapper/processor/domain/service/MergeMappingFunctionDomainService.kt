@@ -2,9 +2,9 @@ package kr.urbansoft.kursmapper.processor.domain.service
 
 import kr.urbansoft.kursmapper.processor.domain.model.function.MappingFunction
 import kr.urbansoft.kursmapper.processor.domain.model.function.MappingFunction.Origin
-import kr.urbansoft.kursmapper.processor.shared.exception.ExceptionMessageSupport
-import kr.urbansoft.kursmapper.processor.shared.exception.ExceptionType
-import kr.urbansoft.kursmapper.processor.shared.validation.validate
+import kr.urbansoft.shared.exception.ExceptionMessageSupport
+import kr.urbansoft.shared.exception.ExceptionType
+import kr.urbansoft.shared.validation.validate
 
 class MergeMappingFunctionDomainService {
   fun merge(vararg mappingFunctionLists: List<MappingFunction>): List<MappingFunction> {

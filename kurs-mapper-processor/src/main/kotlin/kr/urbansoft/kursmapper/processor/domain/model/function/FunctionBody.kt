@@ -3,8 +3,8 @@ package kr.urbansoft.kursmapper.processor.domain.model.function
 import kr.urbansoft.kursmapper.processor.domain.model.config.ContextConfig
 import kr.urbansoft.kursmapper.processor.domain.model.kurstype.KursType
 import kr.urbansoft.kursmapper.processor.domain.model.packages.PackageName
-import kr.urbansoft.kursmapper.processor.shared.exception.ExceptionMessageSupport
-import kr.urbansoft.kursmapper.processor.shared.exception.ExceptionType
+import kr.urbansoft.shared.exception.ExceptionMessageSupport
+import kr.urbansoft.shared.exception.ExceptionType
 
 @JvmInline
 value class FunctionBody private constructor(val value: String) {

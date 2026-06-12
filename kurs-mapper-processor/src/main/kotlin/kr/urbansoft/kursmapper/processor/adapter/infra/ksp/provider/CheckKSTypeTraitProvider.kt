@@ -11,9 +11,12 @@ class CheckKSTypeTraitProvider(
   kspResolver: Resolver,
   private val contextConfigRegistry: ContextConfigRegistry,
 ) {
-  private val listKsType = kspResolver.getClassDeclarationByName("kotlin.collections.List")?.asStarProjectedType() ?: error("unreachable error")
-  private val mapKsType = kspResolver.getClassDeclarationByName("kotlin.collections.Map")?.asStarProjectedType() ?: error("unreachable error")
-  private val setKsType = kspResolver.getClassDeclarationByName("kotlin.collections.Set")?.asStarProjectedType() ?: error("unreachable error")
+  private val listKsType =
+    kspResolver.getClassDeclarationByName("kotlin.collections.List")?.asStarProjectedType() ?: error("unreachable error")
+  private val mapKsType =
+    kspResolver.getClassDeclarationByName("kotlin.collections.Map")?.asStarProjectedType() ?: error("unreachable error")
+  private val setKsType =
+    kspResolver.getClassDeclarationByName("kotlin.collections.Set")?.asStarProjectedType() ?: error("unreachable error")
 
   fun get(): CheckKSTypeTrait {
     return CheckKSTypeTrait {

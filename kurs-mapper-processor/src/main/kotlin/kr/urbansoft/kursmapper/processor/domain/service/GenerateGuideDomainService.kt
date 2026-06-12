@@ -6,8 +6,8 @@ import kr.urbansoft.kursmapper.processor.domain.model.function.MappingFunctionId
 import kr.urbansoft.kursmapper.processor.domain.model.kurstype.KursType
 import kr.urbansoft.kursmapper.processor.domain.model.kurstype.KursTypeId
 import kr.urbansoft.kursmapper.processor.domain.service.guide.LanguageProvider
-import kr.urbansoft.kursmapper.processor.shared.exception.ExceptionMessageSupport
-import kr.urbansoft.kursmapper.processor.shared.exception.ExceptionType
+import kr.urbansoft.shared.exception.ExceptionMessageSupport
+import kr.urbansoft.shared.exception.ExceptionType
 
 class GenerateGuideDomainService {
   interface Context {
@@ -64,11 +64,15 @@ class GenerateGuideDomainService {
         appendLine(argumentLackedReferToBelow)
         appendLine()
         appendLine("${number++}. $openConfigInterfaceFile")
-        appendLine("   - ${configInterfaceFQCN}: ${contextConfig.configInterfacePackageName.value}.${contextConfig.configInterfaceSimpleName.value}")
+        appendLine(
+          "   - ${configInterfaceFQCN}: ${contextConfig.configInterfacePackageName.value}.${contextConfig.configInterfaceSimpleName.value}"
+        )
         appendLine()
         appendLine("${number++}. $changeArgumentsToFinal")
         appendLine("   - $purposeFunction")
-        appendLine("        fun ${source.id.simpleName().value}.${target.mappingFunctionName.value}(${arguments}): ${target.id.simpleName().value}")
+        appendLine(
+          "        fun ${source.id.simpleName().value}.${target.mappingFunctionName.value}(${arguments}): ${target.id.simpleName().value}"
+        )
         appendLine("   - $reference ${finalArgument}: $finalArguments")
         appendLine(
           "        fun ${source.id.simpleName().value}.${target.mappingFunctionName.value}(${finalArguments}): ${target.id.simpleName().value}"
@@ -136,7 +140,9 @@ class GenerateGuideDomainService {
         appendLine(sandboxOverwrittenReferToBelow)
         appendLine()
         appendLine("${number++}. $openConfigInterfaceFile")
-        appendLine("   - ${configInterfaceFQCN}: ${contextConfig.configInterfacePackageName.value}.${contextConfig.configInterfaceSimpleName.value}")
+        appendLine(
+          "   - ${configInterfaceFQCN}: ${contextConfig.configInterfacePackageName.value}.${contextConfig.configInterfaceSimpleName.value}"
+        )
         appendLine()
         appendLine("${number++}. $deleteSandbox")
         appendLine("    @JvmInline")
@@ -193,7 +199,8 @@ class GenerateGuideDomainService {
         appendLine("${number++}. $replaceFunctionBodyWithIDEFeature")
         appendLine("    fun ${target.mappingFunctionName.value}(${arguments}): ${target.id.simpleName().value} {")
         val bridgeCode =
-          mappingFunction.body.value.takeIf { it.isNotBlank() }?.let { "{ ${mappingFunction.body.value} }" } ?: "= TODO(\"${implementHere}\")"
+          mappingFunction.body.value.takeIf { it.isNotBlank() }?.let { "{ ${mappingFunction.body.value} }" }
+            ?: "= TODO(\"${implementHere}\")"
         appendLine("      TODO(\"${pasteHere.replace("{code: bridge}", bridgeCode)}\")")
         appendLine("    }")
         appendLine()

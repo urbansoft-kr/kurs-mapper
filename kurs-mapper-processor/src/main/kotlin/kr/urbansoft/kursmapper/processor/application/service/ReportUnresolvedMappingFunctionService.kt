@@ -12,8 +12,8 @@ import kr.urbansoft.kursmapper.processor.domain.model.function.MappingFunctionId
 import kr.urbansoft.kursmapper.processor.domain.model.kurstype.KursType
 import kr.urbansoft.kursmapper.processor.domain.service.GenerateGuideDomainService
 import kr.urbansoft.kursmapper.processor.domain.service.guide.LanguageProvider
-import kr.urbansoft.kursmapper.processor.shared.exception.ExceptionMessageSupport
-import kr.urbansoft.kursmapper.processor.shared.exception.ExceptionType
+import kr.urbansoft.shared.exception.ExceptionMessageSupport
+import kr.urbansoft.shared.exception.ExceptionType
 
 class ReportUnresolvedMappingFunctionService(
   loadConfigPort: LoadConfigPort,

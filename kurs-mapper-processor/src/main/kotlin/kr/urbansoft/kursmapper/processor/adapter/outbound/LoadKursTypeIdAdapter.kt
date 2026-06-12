@@ -10,8 +10,8 @@ import kr.urbansoft.kursmapper.processor.adapter.infra.registry.KursTypeIdRegist
 import kr.urbansoft.kursmapper.processor.application.port.outbound.LoadKursTypeIdPort
 import kr.urbansoft.kursmapper.processor.domain.model.kurstype.KursTypeId
 import kr.urbansoft.kursmapper.processor.domain.model.kurstype.KursTypeName
-import kr.urbansoft.kursmapper.processor.shared.exception.ExceptionMessageSupport
-import kr.urbansoft.kursmapper.processor.shared.exception.ExceptionType
+import kr.urbansoft.shared.exception.ExceptionMessageSupport
+import kr.urbansoft.shared.exception.ExceptionType
 
 class LoadKursTypeIdAdapter(
   private val checkKsTypeTrait: CheckKSTypeTrait,
@@ -26,7 +26,11 @@ class LoadKursTypeIdAdapter(
     return ksType
       .makeNotNullable()
       .kspMapper()
-      .asKursTypeId(loadMappedKursTypeId = loadMappedKursTypeId, checkKsTypeTrait = checkKsTypeTrait, handleMappedKursTypeId = handleMappedKursTypeId)
+      .asKursTypeId(
+        loadMappedKursTypeId = loadMappedKursTypeId,
+        checkKsTypeTrait = checkKsTypeTrait,
+        handleMappedKursTypeId = handleMappedKursTypeId,
+      )
   }
 
   override fun asNullable(kursTypeId: KursTypeId): KursTypeId {
@@ -34,7 +38,11 @@ class LoadKursTypeIdAdapter(
     return ksType
       .makeNullable()
       .kspMapper()
-      .asKursTypeId(loadMappedKursTypeId = loadMappedKursTypeId, checkKsTypeTrait = checkKsTypeTrait, handleMappedKursTypeId = handleMappedKursTypeId)
+      .asKursTypeId(
+        loadMappedKursTypeId = loadMappedKursTypeId,
+        checkKsTypeTrait = checkKsTypeTrait,
+        handleMappedKursTypeId = handleMappedKursTypeId,
+      )
   }
 
   override fun loadByName(name: KursTypeName): KursTypeId =

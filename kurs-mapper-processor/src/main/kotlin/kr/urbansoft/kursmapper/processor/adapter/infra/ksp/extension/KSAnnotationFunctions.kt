@@ -6,12 +6,16 @@ import kotlin.reflect.KClass
 
 fun KSAnnotation.getArgumentOrNull(name: String): KSValueArgument? = arguments.find { it.getNameOrNull() == name }
 
-inline fun <reified E : Enum<E>> KSAnnotation.getArgumentValueAsEnumOrNull(name: String): E? = getArgumentOrNull(name)?.getValueAsEnumOrNull()
+inline fun <reified E : Enum<E>> KSAnnotation.getArgumentValueAsEnumOrNull(name: String): E? =
+  getArgumentOrNull(name)?.getValueAsEnumOrNull()
 
 inline fun <reified T> KSAnnotation.getArgumentValueAsListOrNull(name: String): List<T?>? = getArgumentOrNull(name)?.getValueAsListOrNull()
 
-inline fun <reified T, S : Any> KSAnnotation.getArgumentValueAsListOrNull(name: String, rawType: KClass<S>, converter: S.() -> T?): List<T?>? =
-  getArgumentOrNull(name)?.getValueAsListOrNull(rawType, converter)
+inline fun <reified T, S : Any> KSAnnotation.getArgumentValueAsListOrNull(
+  name: String,
+  rawType: KClass<S>,
+  converter: S.() -> T?,
+): List<T?>? = getArgumentOrNull(name)?.getValueAsListOrNull(rawType, converter)
 
 fun KSAnnotation.getArgumentValueAsTrimmedStringOrNull(name: String): String? = getArgumentOrNull(name)?.getValueAsTrimmedStringOrNull()
 

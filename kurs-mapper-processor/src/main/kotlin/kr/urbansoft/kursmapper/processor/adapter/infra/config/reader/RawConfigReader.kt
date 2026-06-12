@@ -37,7 +37,10 @@ class RawConfigReader(
   private val rawContextConfig: RawContextConfig =
     contextAnnotation
       .configMapper()
-      .asRawContextConfig(configInterfacePackageName = configInterface.getPackageName(), configInterfaceSimpleName = configInterface.getSimpleName())
+      .asRawContextConfig(
+        configInterfacePackageName = configInterface.getPackageName(),
+        configInterfaceSimpleName = configInterface.getSimpleName(),
+      )
 
   fun readRawContextConfig(): RawContextConfig = rawContextConfig
 

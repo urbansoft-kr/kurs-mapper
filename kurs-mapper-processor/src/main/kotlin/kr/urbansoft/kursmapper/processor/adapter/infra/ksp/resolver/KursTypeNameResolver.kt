@@ -9,9 +9,11 @@ import kr.urbansoft.kursmapper.processor.domain.model.kurstype.KursTypeName
 class KursTypeNameResolver(private val kspResolver: Resolver) {
   fun resolve(name: KursTypeName): KSType {
     val bareKSType =
-      name.removeGeneric().asNotNull().let { kspResolver.getClassDeclarationByName(it.value) } ?: error("KSType is not found: ${name.value}")
+      name.removeGeneric().asNotNull().let { kspResolver.getClassDeclarationByName(it.value) }
+        ?: error("KSType is not found: ${name.value}")
 
-    if (name.containsNoGeneric()) return bareKSType.asStarProjectedType().run { if (name.isNullable()) makeNullable() else makeNotNullable() }
+    if (name.containsNoGeneric())
+      return bareKSType.asStarProjectedType().run { if (name.isNullable()) makeNullable() else makeNotNullable() }
 
     val typeArgumentList =
       name.genericList().map {

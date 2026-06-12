@@ -1,7 +1,7 @@
 package kr.urbansoft.kursmapper.processor.domain.model.function
 
 import kr.urbansoft.kursmapper.processor.domain.model.kurstype.KursTypeId
-import kr.urbansoft.kursmapper.processor.shared.uuid.UUIDv4
+import kr.urbansoft.shared.uuid.UUIDv4
 
 @ConsistentCopyVisibility
 data class Argument private constructor(val id: UUIDv4, val name: ArgumentName, val typeId: KursTypeId) {

@@ -2,9 +2,9 @@ package kr.urbansoft.kursmapper.processor.domain.model.function
 
 import kr.urbansoft.kursmapper.processor.domain.model.kurstype.KursTypeId
 import kr.urbansoft.kursmapper.processor.domain.model.mapper.MapperName
-import kr.urbansoft.kursmapper.processor.shared.exception.ExceptionMessageSupport
-import kr.urbansoft.kursmapper.processor.shared.exception.ExceptionType
-import kr.urbansoft.kursmapper.processor.shared.validation.validate
+import kr.urbansoft.shared.exception.ExceptionMessageSupport
+import kr.urbansoft.shared.exception.ExceptionType
+import kr.urbansoft.shared.validation.validate
 
 @ConsistentCopyVisibility
 data class MappingFunction
@@ -244,7 +244,8 @@ private constructor(
   fun markAsResolvedOrArgumentLacked(calleeList: List<MappingFunction>): MappingFunction =
     if (hasAllRequiredArguments(calleeList)) markAsResolved() else markAsArgumentLacked()
 
-  fun markAsResolvedOrArgumentLacked(vararg calleeList: MappingFunction): MappingFunction = markAsResolvedOrArgumentLacked(calleeList.toList())
+  fun markAsResolvedOrArgumentLacked(vararg calleeList: MappingFunction): MappingFunction =
+    markAsResolvedOrArgumentLacked(calleeList.toList())
 
   fun maybeCallable(): Boolean =
     when (state) {
