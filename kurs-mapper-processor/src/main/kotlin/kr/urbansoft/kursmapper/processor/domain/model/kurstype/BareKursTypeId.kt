@@ -56,6 +56,11 @@ private constructor(
           .replace("!", "") // remove invalid character
     )
 
+  fun packageRelativeName(): KursTypeSimpleName =
+    KursTypeSimpleName.from(qualifiedName.value.removePrefix("${packageName.value}."))
+
+  fun topLevelName(): KursTypeSimpleName = KursTypeSimpleName.from(packageRelativeName().value.substringBefore("."))
+
   fun hasTrait(trait: KursType.Trait): Boolean = trait in traitSet
 
   fun hasAllTraits(vararg traits: KursType.Trait): Boolean = traits.all { hasTrait(it) }

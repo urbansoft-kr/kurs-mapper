@@ -73,8 +73,8 @@ plugins {
 }
 
 dependencies {
-  implementation("kr.urbansoft.kursmapper:kurs-mapper-annotation:0.1.2-alpha")
-  ksp("kr.urbansoft.kursmapper:kurs-mapper-processor:0.1.2-alpha")
+  implementation("kr.urbansoft.kursmapper:kurs-mapper-annotation:0.1.3-alpha")
+  ksp("kr.urbansoft.kursmapper:kurs-mapper-processor:0.1.3-alpha")
 }
 ```
 

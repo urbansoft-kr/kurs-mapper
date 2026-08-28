@@ -118,8 +118,8 @@ value class FunctionBody private constructor(val value: String) {
 
     private fun KursTypeInstantiator.asCode(): String {
       return when (kind) {
-        KursTypeInstantiator.Kind.PRIMARY_CONSTRUCTOR -> kursTypeId.bareSimpleName().value
-        KursTypeInstantiator.Kind.STATIC_FUNCTION -> "${kursTypeId.bareSimpleName().value}.${name.value}"
+        KursTypeInstantiator.Kind.PRIMARY_CONSTRUCTOR -> kursTypeId.packageRelativeName().value
+        KursTypeInstantiator.Kind.STATIC_FUNCTION -> "${kursTypeId.packageRelativeName().value}.${name.value}"
       }
     }
 
@@ -162,7 +162,7 @@ value class FunctionBody private constructor(val value: String) {
         list.add(from(context.contextConfig.configInterfacePackageName, context.contextConfig.configInterfaceSimpleName.value))
       }
 
-      fun create(kursType: KursType): Builder = apply { list.add(from(kursType.packageName(), kursType.bareSimpleName().value)) }
+      fun create(kursType: KursType): Builder = apply { list.add(from(kursType.packageName(), kursType.id.topLevelName().value)) }
     }
   }
 }
