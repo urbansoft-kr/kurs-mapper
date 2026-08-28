@@ -76,6 +76,10 @@ data class KursTypeId private constructor(val name: KursTypeName, val bareId: Ba
 
   fun bareSimpleName(): KursTypeSimpleName = bareId.simpleName
 
+  fun packageRelativeName(): KursTypeSimpleName = bareId.packageRelativeName()
+
+  fun topLevelName(): KursTypeSimpleName = bareId.topLevelName()
+
   fun nullability(): KursType.Nullability = bareId.nullability
 
   fun hasAllTraits(traits: Collection<KursType.Trait>): Boolean = bareId.hasAllTraits(traits)
