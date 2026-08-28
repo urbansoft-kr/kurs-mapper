@@ -46,7 +46,7 @@ private constructor(
         KursType.Nullability.NULLABLE -> "Nullable"
         KursType.Nullability.NOT_NULL -> ""
       } +
-        simpleName.value
+        packageRelativeName().value
           .replace(".", "") // remove invalid character
           .replace("<", "") // remove invalid character
           .replace(">", "") // remove invalid character
