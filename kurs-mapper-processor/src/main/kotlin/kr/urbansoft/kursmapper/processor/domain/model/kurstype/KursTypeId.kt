@@ -70,6 +70,7 @@ data class KursTypeId private constructor(val name: KursTypeName, val bareId: Ba
           append(genericIdList.joinToString(", ") { it?.simpleName()?.value ?: "*" })
           append(">")
         }
+        if (nullability() == KursType.Nullability.NULLABLE) append("?")
       }
     )
   }
