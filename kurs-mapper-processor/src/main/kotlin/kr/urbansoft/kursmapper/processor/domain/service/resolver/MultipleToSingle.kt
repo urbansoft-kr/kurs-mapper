@@ -64,21 +64,20 @@ private fun CurrentContext.notNullToNotNull(): MappingFunction {
       val calleeId = calleeId(sourceParameter.typeId to target.id)
       val current = current.addCalleeId(calleeId)
       return withCallableCallee(calleeId) { (callee, calleeSource, calleeTarget) ->
-        current
-          .addArgumentListIfAvailable(callee.argumentList)
-          .embody(
+        current.addArgumentListIfAvailable(callee.argumentList).let {
+          it.embody(
             body {
               returnKeyword()
               source()
               dot().nameOf(sourceParameter)
               dot().contextName().invoke()
-              dot().functionName(calleeTarget).invoke(argumentList = callee.argumentList, caller = current)
+              dot().functionName(calleeTarget).invoke(argumentList = callee.argumentList, caller = it)
             },
             import {
               callee(callee, calleeSource to calleeTarget)
             },
-          )
-          .markAsResolvedOrArgumentLacked(callee)
+          ).markAsResolvedOrArgumentLacked(callee)
+        }
       } ?: current.clearBody().markAsImplementationRequired()
     }
 

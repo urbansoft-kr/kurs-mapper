@@ -21,22 +21,23 @@ private fun CurrentContext.notNullToNotNull(): MappingFunction {
     val calleeId = calleeId(unwrappedSourceId to unwrappedTargetId)
     val current = current.addCalleeId(calleeId)
     return withCallableCallee(calleeId) { (callee, calleeSource, calleeTarget) ->
-      current
-        .addArgumentListIfAvailable(callee.argumentList)
-        .embody(
-          body {
-            returnKeyword()
-            source()
-            dot().map {
-              it()
-              dot().contextName().invoke()
-              dot().functionName(calleeTarget).invoke(argumentList = callee.argumentList, caller = current)
-            }
-            if (target.isSet()) dot().toSet() else this
-          },
-          import { callee(callee, calleeSource to calleeTarget) },
-        )
-        .markAsResolvedOrArgumentLacked(callee)
+      current.addArgumentListIfAvailable(callee.argumentList).let {
+        it
+          .embody(
+            body {
+              returnKeyword()
+              source()
+              dot().map {
+                it()
+                dot().contextName().invoke()
+                dot().functionName(calleeTarget).invoke(argumentList = callee.argumentList, caller = it)
+              }
+              if (target.isSet()) dot().toSet() else this
+            },
+            import { callee(callee, calleeSource to calleeTarget) },
+          )
+          .markAsResolvedOrArgumentLacked(callee)
+      }
     } ?: current.clearBody().markAsImplementationRequired()
   }
 

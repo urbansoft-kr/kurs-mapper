@@ -150,6 +150,9 @@ private constructor(
       ?.let { copy(argumentList = (this.argumentList + it).deduplicate()) } ?: this
   }
 
+  fun replaceArgumentListIfCandidate(argumentList: List<Argument>): MappingFunction =
+    if (origin == Origin.CANDIDATE) copy(argumentList = argumentList.toList()) else this
+
   fun addCalleeId(calleeId: MappingFunctionId): MappingFunction = copy(calleeIdSet = calleeIdSet + calleeId)
 
   fun changeSourceIdAndTargetId(pair: Pair<KursTypeId, KursTypeId>): MappingFunction = copy(sourceId = pair.first, targetId = pair.second)

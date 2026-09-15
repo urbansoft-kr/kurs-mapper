@@ -21,7 +21,7 @@ private val concrete =
         body =
           FunctionBody.build(functionBodyBuilderContext()) {
             returnKeyword()
-            text("UUID")
+            text("java.util.UUID")
             dot().text("fromString").invoke { source() }
           },
         importList = FunctionBody.Import.buildList(functionBodyBuilderContext()) { nothing() },
