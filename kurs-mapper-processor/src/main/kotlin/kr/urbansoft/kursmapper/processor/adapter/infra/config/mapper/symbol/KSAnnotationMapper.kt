@@ -34,5 +34,7 @@ value class KSAnnotationMapper(private val source: KSAnnotation) {
       mappingFunctionNamePrefix = source.getArgumentValueAsTrimmedStringOrNull(KursRuleDefinition.Property.MAPPING_FUNCTION_NAME_PREFIX),
       mappingFunctionName = source.getArgumentValueAsTrimmedStringOrNull(KursRuleDefinition.Property.MAPPING_FUNCTION_NAME),
       mappingFunctionNameSuffix = source.getArgumentValueAsTrimmedStringOrNull(KursRuleDefinition.Property.MAPPING_FUNCTION_NAME_SUFFIX),
+      typeNamePrefix = source.getArgumentValueAsTrimmedStringOrNull(KursRuleDefinition.Property.TYPE_NAME_PREFIX),
+      typeNameSuffix = source.getArgumentValueAsTrimmedStringOrNull(KursRuleDefinition.Property.TYPE_NAME_SUFFIX),
     )
 }

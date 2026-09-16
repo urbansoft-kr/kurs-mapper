@@ -11,4 +11,6 @@ data class RawRuleConfig(
   val mappingFunctionNamePrefix: String?,
   val mappingFunctionName: String?,
   val mappingFunctionNameSuffix: String?,
+  val typeNamePrefix: String?,
+  val typeNameSuffix: String?,
 )

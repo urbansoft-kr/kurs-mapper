@@ -22,6 +22,8 @@ private constructor(
   val mappingFunctionNamePrefix: FunctionNamePrefix,
   val mappingFunctionName: SymbolName?,
   val mappingFunctionNameSuffix: FunctionNameSuffix,
+  val typeNamePrefix: TypeNamePrefix,
+  val typeNameSuffix: TypeNameSuffix,
 ) {
   init {
     when (mapperSubPackageCreationMode) {
@@ -43,6 +45,8 @@ private constructor(
       mappingFunctionNamePrefix: FunctionNamePrefix,
       mappingFunctionName: SymbolName?,
       mappingFunctionNameSuffix: FunctionNameSuffix,
+      typeNamePrefix: TypeNamePrefix,
+      typeNameSuffix: TypeNameSuffix,
     ) =
       RuleConfig(
         mapperSubPackageCreationMode = mapperSubPackageCreationMode,
@@ -53,6 +57,8 @@ private constructor(
         mappingFunctionNamePrefix = mappingFunctionNamePrefix,
         mappingFunctionName = mappingFunctionName,
         mappingFunctionNameSuffix = mappingFunctionNameSuffix,
+        typeNamePrefix = typeNamePrefix,
+        typeNameSuffix = typeNameSuffix,
       )
 
     fun default() =
@@ -65,6 +71,8 @@ private constructor(
         mappingFunctionNamePrefix = FunctionNamePrefix.default(),
         mappingFunctionName = null,
         mappingFunctionNameSuffix = FunctionNameSuffix.default(),
+        typeNamePrefix = TypeNamePrefix.default(),
+        typeNameSuffix = TypeNameSuffix.default(),
       )
   }
 
@@ -79,7 +87,12 @@ private constructor(
   fun mapperName(kursTypeId: KursTypeId, contextConfig: ContextConfig): MapperName =
     MapperName.from(
       prefix = mapperNamePrefix,
-      value = this.mapperName ?: kursTypeId.symbolName(),
+      value =
+        this.mapperName
+          ?: kursTypeId.symbolName(
+            typeNamePrefix = typeNamePrefix,
+            typeNameSuffix = typeNameSuffix,
+          ),
       suffix = mapperNameSuffix,
       globalSuffix = contextConfig.mapperNameGlobalSuffix,
     )
@@ -88,7 +101,12 @@ private constructor(
     FunctionName.from(
       mappingFunctionNameVerb = contextConfig.mappingFunctionNameVerb,
       prefix = mappingFunctionNamePrefix,
-      value = mappingFunctionName ?: kursTypeId.symbolName(),
+      value =
+        mappingFunctionName
+          ?: kursTypeId.symbolName(
+            typeNamePrefix = typeNamePrefix,
+            typeNameSuffix = typeNameSuffix,
+          ),
       suffix = mappingFunctionNameSuffix,
     )
 

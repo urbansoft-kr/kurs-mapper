@@ -15,6 +15,8 @@ object KursRuleDefinition {
     const val MAPPING_FUNCTION_NAME_PREFIX = "mappingFunctionNamePrefix"
     const val MAPPING_FUNCTION_NAME = "mappingFunctionName"
     const val MAPPING_FUNCTION_NAME_SUFFIX = "mappingFunctionNameSuffix"
+    const val TYPE_NAME_PREFIX = "typeNamePrefix"
+    const val TYPE_NAME_SUFFIX = "typeNameSuffix"
   }
 
   object MapperSubPackageCreationModeValue {

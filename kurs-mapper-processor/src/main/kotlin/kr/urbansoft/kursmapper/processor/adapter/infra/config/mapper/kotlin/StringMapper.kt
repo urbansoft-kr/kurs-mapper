@@ -9,6 +9,8 @@ import kr.urbansoft.kursmapper.processor.domain.model.config.MapperNamePrefix
 import kr.urbansoft.kursmapper.processor.domain.model.config.MapperNameSuffix
 import kr.urbansoft.kursmapper.processor.domain.model.config.MapperSourceVariableName
 import kr.urbansoft.kursmapper.processor.domain.model.config.MappingFunctionNameVerb
+import kr.urbansoft.kursmapper.processor.domain.model.config.TypeNamePrefix
+import kr.urbansoft.kursmapper.processor.domain.model.config.TypeNameSuffix
 import kr.urbansoft.kursmapper.processor.domain.model.kurstype.SymbolName
 import kr.urbansoft.kursmapper.processor.domain.model.packages.PackageName
 import kr.urbansoft.kursmapper.processor.domain.model.packages.PackageNamePart
@@ -40,4 +42,8 @@ value class StringMapper(private val source: String) {
   fun asPackageNamePart(): PackageNamePart = PackageNamePart.from(source)
 
   fun asSymbolName(): SymbolName = SymbolName.from(source)
+
+  fun asTypeNamePrefix(): TypeNamePrefix = TypeNamePrefix.from(source)
+
+  fun asTypeNameSuffix(): TypeNameSuffix = TypeNameSuffix.from(source)
 }

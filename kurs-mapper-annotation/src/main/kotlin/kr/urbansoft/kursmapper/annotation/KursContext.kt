@@ -9,6 +9,6 @@ annotation class KursContext(
   val mapperSourceVariableName: String = "source",
   val mappingFunctionNameVerb: String = "as",
   val packageRules: Array<KursPackageRule> =
-    [KursPackageRule(packageName = "java", rule = KursRule(mapperNamePrefix = "Java", mappingFunctionNamePrefix = "Java"))],
+    [KursPackageRule(packageName = "java", rule = KursRule(typeNamePrefix = "Java"))],
   val guideLanguage: GuideLanguage = GuideLanguage.EN_US,
 )

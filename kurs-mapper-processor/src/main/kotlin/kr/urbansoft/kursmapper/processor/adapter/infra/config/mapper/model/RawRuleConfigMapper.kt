@@ -18,5 +18,7 @@ class RawRuleConfigMapper(private val source: RawRuleConfig) {
       mappingFunctionNamePrefix = source.mappingFunctionNamePrefix.configMapper().asFunctionNamePrefix(),
       mappingFunctionName = source.mappingFunctionName.configMapper().asNullableSymbolName(),
       mappingFunctionNameSuffix = source.mappingFunctionNameSuffix.configMapper().asFunctionNameSuffix(),
+      typeNamePrefix = source.typeNamePrefix.configMapper().asTypeNamePrefix(),
+      typeNameSuffix = source.typeNameSuffix.configMapper().asTypeNameSuffix(),
     )
 }

@@ -1,5 +1,7 @@
 package kr.urbansoft.kursmapper.processor.domain.model.kurstype
 
+import kr.urbansoft.kursmapper.processor.domain.model.config.TypeNamePrefix
+import kr.urbansoft.kursmapper.processor.domain.model.config.TypeNameSuffix
 import kr.urbansoft.kursmapper.processor.domain.model.packages.PackageName
 import kr.urbansoft.shared.exception.ExceptionMessageSupport
 import kr.urbansoft.shared.exception.ExceptionType
@@ -51,10 +53,28 @@ data class KursTypeId private constructor(val name: KursTypeName, val bareId: Ba
     }
   }
 
-  fun symbolName(): SymbolName =
+  fun symbolName(
+    typeNamePrefix: TypeNamePrefix,
+    typeNameSuffix: TypeNameSuffix,
+  ): SymbolName =
     SymbolName.from(
-      genericIdList.filterNotNull().map { it.symbolName().value }.fold("") { acc, symbolNameValue -> acc + symbolNameValue } +
-        bareId.symbolName().value
+      genericIdList
+        .filterNotNull()
+        .map {
+          it
+            .symbolName(
+              typeNamePrefix = typeNamePrefix,
+              typeNameSuffix = typeNameSuffix,
+            )
+            .value
+        }
+        .fold("") { acc, symbolNameValue -> acc + symbolNameValue } +
+        bareId
+          .symbolName(
+            typeNamePrefix = typeNamePrefix,
+            typeNameSuffix = typeNameSuffix,
+          )
+          .value
     )
 
   fun qualifiedName(): KursTypeQualifiedName = bareId.qualifiedName

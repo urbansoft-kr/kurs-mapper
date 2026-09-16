@@ -1,5 +1,7 @@
 package kr.urbansoft.kursmapper.processor.domain.model.kurstype
 
+import kr.urbansoft.kursmapper.processor.domain.model.config.TypeNamePrefix
+import kr.urbansoft.kursmapper.processor.domain.model.config.TypeNameSuffix
 import kr.urbansoft.kursmapper.processor.domain.model.packages.PackageName
 import kr.urbansoft.shared.exception.ExceptionMessageSupport
 import kr.urbansoft.shared.exception.ExceptionType
@@ -40,13 +42,18 @@ private constructor(
       )
   }
 
-  fun symbolName(): SymbolName =
+  fun symbolName(
+    typeNamePrefix: TypeNamePrefix,
+    typeNameSuffix: TypeNameSuffix,
+  ): SymbolName =
     SymbolName.from(
       when (nullability) {
         KursType.Nullability.NULLABLE -> "Nullable"
         KursType.Nullability.NOT_NULL -> ""
       } +
-        packageRelativeName().value
+        typeNamePrefix.value +
+        packageRelativeName()
+          .value
           .replace(".", "") // remove invalid character
           .replace("<", "") // remove invalid character
           .replace(">", "") // remove invalid character
@@ -54,10 +61,10 @@ private constructor(
           .replace(" ", "") // remove invalid character
           .replace("?", "") // remove invalid character
           .replace("!", "") // remove invalid character
+        + typeNameSuffix.value
     )
 
-  fun packageRelativeName(): KursTypeSimpleName =
-    KursTypeSimpleName.from(qualifiedName.value.removePrefix("${packageName.value}."))
+  fun packageRelativeName(): KursTypeSimpleName = KursTypeSimpleName.from(qualifiedName.value.removePrefix("${packageName.value}."))
 
   fun topLevelName(): KursTypeSimpleName = KursTypeSimpleName.from(packageRelativeName().value.substringBefore("."))
 
